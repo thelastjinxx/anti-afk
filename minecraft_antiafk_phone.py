@@ -81,6 +81,35 @@ Troubleshooting:
     the phone's app settings.
 
 =====================================================================
+QUICK START: JUST TYPE "afk" (Termux)
+=====================================================================
+One-time setup. Paste this whole block into Termux (it saves a shortcut):
+
+cat >> ~/.bashrc <<'EOF'
+afk() {
+  read -p "IP:port from Wireless debugging: " addr
+  adb connect "$addr" && termux-wake-lock && python ~/minecraft_antiafk_phone.py
+}
+EOF
+source ~/.bashrc
+
+Every time after that:
+  1. Turn on Wireless debugging and read the IP:port on the MAIN screen
+     (not the pairing dialog).
+  2. In Termux, type:
+         afk
+  3. Enter the IP:port (for example 172.16.6.239:42921, no brackets).
+     It connects, turns on the wake lock and starts the script.
+  4. Switch to Minecraft in landscape. Ctrl+C in Termux stops it.
+
+Notes:
+  - The script must be at ~/minecraft_antiafk_phone.py (see step 4 above).
+  - "afk: command not found": run `source ~/.bashrc` or restart Termux.
+  - Already connected and just want to restart the script?
+        python ~/minecraft_antiafk_phone.py
+
+
+=====================================================================
 CALIBRATION (if taps miss their buttons)
 =====================================================================
 Button positions below are fractions of the screen based on the default
